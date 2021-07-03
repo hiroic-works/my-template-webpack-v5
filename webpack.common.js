@@ -39,6 +39,7 @@ module.exports = ({ outputName, assetName }) => ({
 		// 出力ファイル名
 		filename: `${outputName}.js`,
 		chunkFilename: `${outputName}.js`,
+		assetModuleFilename: `images/${assetName}.[ext]` // 画像ファイルの出力先
 	},
 	module: {
 		rules: [
@@ -66,14 +67,7 @@ module.exports = ({ outputName, assetName }) => ({
 			{
 				// image,font
 				test: /\.(jpe?g|gif|png|svg|woff2?|ttf|eot)$/,
-				use: {
-					loader: 'file-loader',
-					options: {
-						name: `${assetName}.[ext]`,
-						outputPath: 'images',
-						publicPath: 'images',
-					}
-				}
+				type: 'asset/resource', // webpack5からAsset Modulesが使えるためfile-loaderがいらなくなった
 			},
 		]
 	},
