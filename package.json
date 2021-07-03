@@ -2,7 +2,7 @@
 	"scripts": {
 		"clean": "npx rimraf ./public",
 		"dev": "npm run webpack:dev && npm run webpack:server",
-		"webpack:server": "npx webpack-dev-server --config ./webpack.dev.js",
+		"webpack:server": "npx webpack serve --config ./webpack.dev.js",
 		"webpack:dev": "npm run clean && npx webpack --config ./webpack.dev.js",
 		"build": "npm run clean && npx webpack --config ./webpack.prod.js"
 	},

@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const outputName = '[name]';
@@ -11,8 +11,10 @@ module.exports = merge(common({ outputName, assetName, htmlMinifyOption  }), {
 	devServer: {
 		open: true,
 		contentBase: './public',
+		watchContentBase: true,
 		watchOptions: {
 			ignored: /node_modules/
 		}
 	},
+	target: 'web', // live reloadを行う場合に必要
 });
