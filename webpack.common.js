@@ -37,9 +37,10 @@ module.exports = ({ outputName, assetName }) => ({
 		//  出力ディレクトリ名
 		path: path.resolve(__dirname, 'public'),
 		// 出力ファイル名
-		filename: `${outputName}.js`,
-		chunkFilename: `${outputName}.js`,
-		assetModuleFilename: `images/${assetName}.[ext]` // 画像ファイルの出力先
+		filename: `js/${outputName}.js`,
+		chunkFilename: `js/${outputName}.js`,
+		assetModuleFilename: `images/${assetName}.[ext]`, // 画像ファイルの出力先
+		clean: true, // build時に出力フォルダの事前クリーンアップ
 	},
 	module: {
 		rules: [
@@ -74,7 +75,7 @@ module.exports = ({ outputName, assetName }) => ({
 	plugins: [
 		// cssファイル生成
 		new MiniCssExtractPlugin({
-			filename: `${outputName}.css`
+			filename: `css/${outputName}.css`
 		}),
 	].concat(htmlWebpackPlugins),
 	resolve: {

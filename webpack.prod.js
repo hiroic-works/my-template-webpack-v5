@@ -1,10 +1,10 @@
 const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const common = require('./webpack.common.js');
 
-const outputName = '[name].[hash]';
-const assetName = '[name].[hash]';
+const outputName = '[name]-[chunkhash]';
+const assetName = '[name]-[contenthash]';
 const htmlMinifyOption = {
 	collapseWhitespace: true,
 	removeComments: true,
@@ -28,7 +28,7 @@ module.exports = merge(common({ outputName, assetName, htmlMinifyOption }), {
 				},
 			}),
 			// css
-			new OptimizeCSSAssetsPlugin()
+			new CssMinimizerPlugin()
 		],
 	},
 });

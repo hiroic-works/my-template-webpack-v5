@@ -1,3 +1,4 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
@@ -10,11 +11,9 @@ module.exports = merge(common({ outputName, assetName, htmlMinifyOption  }), {
 	devtool: 'source-map',
 	devServer: {
 		open: true,
-		contentBase: './public',
-		watchContentBase: true,
-		watchOptions: {
-			ignored: /node_modules/
-		}
+		static: {
+			directory: path.join(__dirname, 'public'),
+		},
 	},
 	target: 'web', // live reloadを行う場合に必要
 });
