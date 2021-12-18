@@ -31,4 +31,5 @@ module.exports = merge(common({ outputName, assetName, htmlMinifyOption }), {
 			new CssMinimizerPlugin()
 		],
 	},
+	target: ['web', 'es5']
 });
