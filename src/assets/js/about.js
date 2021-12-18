@@ -1,11 +1,12 @@
 // jsのインポート
-import { log, Sample, SampleExtend } from "@js/common";
+import { log, Sample, SampleExtend } from "@js/modules/utils";
 
 // scssのインポート
-import "@scss/app.scss";
+import "@scss/about.scss";
 
 // 実行
 document.addEventListener('DOMContentLoaded', () => {
+	log('Hello about');
 	const es = new Sample();
 	es.counter();
 	Sample.version();

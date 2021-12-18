@@ -28,9 +28,12 @@ function generateHtmlPlugins(templateDir) {
 // HtmlWebpackPlugin生成
 const htmlWebpackPlugins = generateHtmlPlugins('./src/views');
 
-module.exports = ({ outputName, assetName }) => ({
+module.exports = ({ outputName, assetName, htmlMinifyConfig }) => ({
 	// エントリーポイント
-	entry: { app: './src/assets/js/app.js' },
+	entry: {
+		index: './src/assets/js/index.js', // TOPページ
+		about: './src/assets/js/about.js', // Aboutページ
+	},
 
 	// ファイル出力設定
 	output: {
@@ -73,11 +76,25 @@ module.exports = ({ outputName, assetName }) => ({
 		]
 	},
 	plugins: [
+		new HtmlWebpackPlugin({
+			filename: `index.html`,
+			template: path.resolve(__dirname, `./src/views/index.html`),
+			inject: 'body',
+			chunks: ['index'],
+			minify: htmlMinifyConfig
+		}),
+		new HtmlWebpackPlugin({
+			filename: `about.html`,
+			template: path.resolve(__dirname, `./src/views/about.html`),
+			inject: 'body',
+			chunks: ['about'],
+			minify: htmlMinifyConfig
+		}),
 		// cssファイル生成
 		new MiniCssExtractPlugin({
 			filename: `css/${outputName}.css`
 		}),
-	].concat(htmlWebpackPlugins),
+	], //.concat(htmlWebpackPlugins),
 	resolve: {
 		alias: {
 			'@js': path.resolve(__dirname, 'src/assets/js'),
