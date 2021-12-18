@@ -14,6 +14,15 @@ module.exports = merge(common({ outputName, assetName, htmlMinifyOption  }), {
 		static: {
 			directory: path.join(__dirname, 'public'),
 		},
+		// 監視対象ファイル。live reloadを行う場合に必要
+		watchFiles: {
+			paths: ['./src/**/*.html'],
+			// options: {
+			// 	ignored: '',
+			// },
+	    },
+		//バンドルされたファイルを出力するかどうか
+		//writeToDisk: true
 	},
 	target: 'web', // live reloadを行う場合に必要
 });
