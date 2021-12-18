@@ -3,37 +3,37 @@ const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// マルチページ対応
-function generateHtmlPlugins(templateDir) {
-	// テンプレート用ディレクトリの内容取得
-	const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir));
-
-	return templateFiles.map(item => {
-
-		// ファイル名と拡張子を分割
-		const parts = item.split('.');
-		const name = parts[0];
-		const extension = parts[1];
-
-		// HtmlWebpackPlugin生成
-		return new HtmlWebpackPlugin({
-			filename: `${name}.html`,
-			template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`),
-			inject: 'body',
-			chunks: ['app'],
-		});
-	});
-}
-
-// HtmlWebpackPlugin生成
-const htmlWebpackPlugins = generateHtmlPlugins('./src/views');
+// ページ設定
+const config = {
+	// JavaScriptエンドポイント
+	entries: {
+		index: './src/assets/js/index.js', // TOPページ
+		about: './src/assets/js/about.js', // aboutページ
+	},
+	// htmlファイル生成
+	htmlWebpackPlugins(htmlMinifyConfig = {}) {
+		return [
+			new HtmlWebpackPlugin({
+				filename: `index.html`,
+				template: path.resolve(__dirname, `./src/views/index.html`),
+				inject: 'body',
+				chunks: ['index'],
+				minify: htmlMinifyConfig
+			}), // TOPページ
+			new HtmlWebpackPlugin({
+				filename: `about.html`,
+				template: path.resolve(__dirname, `./src/views/about.html`),
+				inject: 'body',
+				chunks: ['about'],
+				minify: htmlMinifyConfig
+			}) // aboutページ
+		]
+	}
+};
 
 module.exports = ({ outputName, assetName, htmlMinifyConfig }) => ({
 	// エントリーポイント
-	entry: {
-		index: './src/assets/js/index.js', // TOPページ
-		about: './src/assets/js/about.js', // Aboutページ
-	},
+	entry: config.entries,
 
 	// ファイル出力設定
 	output: {
@@ -76,25 +76,11 @@ module.exports = ({ outputName, assetName, htmlMinifyConfig }) => ({
 		]
 	},
 	plugins: [
-		new HtmlWebpackPlugin({
-			filename: `index.html`,
-			template: path.resolve(__dirname, `./src/views/index.html`),
-			inject: 'body',
-			chunks: ['index'],
-			minify: htmlMinifyConfig
-		}),
-		new HtmlWebpackPlugin({
-			filename: `about.html`,
-			template: path.resolve(__dirname, `./src/views/about.html`),
-			inject: 'body',
-			chunks: ['about'],
-			minify: htmlMinifyConfig
-		}),
 		// cssファイル生成
 		new MiniCssExtractPlugin({
 			filename: `css/${outputName}.css`
 		}),
-	], //.concat(htmlWebpackPlugins),
+	].concat(config.htmlWebpackPlugins(htmlMinifyConfig)),
 	resolve: {
 		alias: {
 			'@js': path.resolve(__dirname, 'src/assets/js'),
