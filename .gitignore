@@ -3,6 +3,11 @@
 # compiled output
 public/
 
+# dotenv environment variables file
+.env
+.env.production
+.env.staging
+.env.development
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,visualstudiocode,sass,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,visualstudiocode,sass,macos,windows

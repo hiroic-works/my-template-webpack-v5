@@ -6,7 +6,7 @@ import "@scss/about.scss";
 
 // 実行
 document.addEventListener('DOMContentLoaded', () => {
-	log('Hello about');
+	console.log('process.env.APP_ENV:',process.env.APP_ENV);
 	const es = new Sample();
 	es.counter();
 	Sample.version();

@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 // ページ設定
 const config = {
@@ -79,6 +80,9 @@ module.exports = ({ outputName, assetName, htmlMinifyConfig }) => ({
 		// cssファイル生成
 		new MiniCssExtractPlugin({
 			filename: `css/${outputName}.css`
+		}),
+		new Dotenv({
+			path: `./.env.${process.env.NODE_ENV}`,
 		}),
 	].concat(config.htmlWebpackPlugins(htmlMinifyConfig)),
 	resolve: {
