@@ -1,0 +1,17 @@
+/******************************************************************
+
+Stylesheet: ベーススタイル
+
+******************************************************************/
+@font-face {
+	font-family: 'mplus-1m-bold';
+	src: url('~@fonts/mplus-1m-bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'mplus-1m-regular';
+	src: url('~@fonts/mplus-1m-regular.woff') format('woff');
+}
+body {
+	font-family: "Kameron", "Noto Sans JP", sans-serif;
+	background: url('~@images/bg.png');
+}

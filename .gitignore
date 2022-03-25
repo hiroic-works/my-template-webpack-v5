@@ -1,7 +1,8 @@
 ### User Setting ###
 
 # compiled output
-public/
+dist/
+build/
 
 # dotenv environment variables file
 .env
